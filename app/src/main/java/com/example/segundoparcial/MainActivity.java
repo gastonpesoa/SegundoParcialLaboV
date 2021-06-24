@@ -90,23 +90,24 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     public boolean onQueryTextSubmit(String query) {
         if(query != null && !query.isEmpty()){
             Log.d("activity", "Hago una busqueda con:" + query);
-            String titulo = "No encontrada";
-            String searchResult = "La persona que busco no esta dentro de la lista";
+            String titulo = "Usuario no encontrado";
+            String searchResult = "El usuario " + query + " no esta dentro de la lista";
             for (int i = 0; i < this.usuariosArray.length(); i++) {
                 try {
                     JSONObject jsonObject = this.usuariosArray.getJSONObject(i);
-                    String nombre = jsonObject.get("nombre").toString();
-                    String telefono = jsonObject.get("telefono").toString();
+                    String nombre = jsonObject.get("username").toString();
+                    String rol = jsonObject.get("rol").toString();
                     if (nombre.equalsIgnoreCase(query)) {
-                        titulo = "Persona encontrada";
-                        searchResult = "El telefono es " + telefono;
+                        titulo = "Usuario encontrado";
+                        searchResult = "El rol del usuario es " + rol;
                         break;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
+            ResultadoBusquedaDialogo dialogo = new ResultadoBusquedaDialogo(titulo, searchResult);
+            dialogo.show(getSupportFragmentManager(), "searchresultdialog");
         }
         return false;
     }
@@ -141,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     }
 
     public Boolean validarDatos(String nombre, String rol, Boolean esAdmin){
-
         return nombre != null && !nombre.isEmpty() && rol != null && !rol.isEmpty() && esAdmin != null;
     }
 
