@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SegundoParcial</string>
+    <string-array name="roles">
+        <item>Supervisor</item>
+        <item>Construction Manager</item>
+        <item>Project Manager</item>
+        <item>Developer</item>
+        <item>Tester</item>
+    </string-array>
 </resources>
